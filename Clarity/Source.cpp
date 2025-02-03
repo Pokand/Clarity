@@ -8,7 +8,9 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 Graphics* graphics;
 bool Paint = false;
 int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) {
-	
+	//HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pfactory);
+	//ID2D1HwndRenderTarget* ptargetrender;
+	//ID2D1SolidColorBrush* pbrushcolor;
 	MSG msg{};
 	static HWND hwnd{}, lButton{};
 	WNDCLASSEX wc{ sizeof(WNDCLASSEX) };
@@ -22,9 +24,40 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 	
 	wc.lpfnWndProc = [](HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)->LRESULT
 		{
+			
 
 			switch (uMsg)
 			{
+				case WM_CREATE:
+				{
+					
+					
+					
+					//CreateWindowA("static", "Hellow window!", WS_VISIBLE | WS_CHILD, 5, 5, 50, 20, hWnd, nullptr, nullptr, nullptr);
+					//RECT rc {};
+					//GetClientRect(hWnd, &rc);
+					//	if (FAILED(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pfactory)) return -1;
+
+
+					//CreateWindow(L"IMAGE", L"image1", WS_)
+					
+					//lButton = CreateWindow (L"BUTTON", L"Таймер", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 100, 100, 100, 100, hWnd, reinterpret_cast<HMENU>(1337), nullptr, nullptr);
+				
+					//MessageBox(hWnd, L"PRIVET", L"OK", MB_ICONERROR);
+				}
+				return 0;
+
+				case WM_SIZE:
+				{
+
+					
+					//RECT rc{};
+					//GetClientRect(hWnd, &rc);
+					//SetWindowPos(lButton, nullptr, 0, 0, LOWORD(lParam), HIWORD(lParam), SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER);
+					
+				}
+				return 0;
+
 				case WM_PAINT:
 				{
 					graphics->BeginDraw();
@@ -43,6 +76,20 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 
 
 					graphics->EndDraw();
+				}
+				return 0;
+				case WM_COMMAND:
+				{
+					switch (LOWORD(wParam))
+					{
+						case 1337:
+						{
+							
+							//Create1(hWnd, lButton);
+						}
+						break;
+					}
+
 				}
 				return 0;
 
@@ -103,20 +150,6 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 	return static_cast<int>(msg.wParam);
 }
 
-/*
-//HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pfactory);
-//ID2D1HwndRenderTarget* ptargetrender;
-//ID2D1SolidColorBrush* pbrushcolor;
-//CreateWindowA("static", "Hellow window!", WS_VISIBLE | WS_CHILD, 5, 5, 50, 20, hWnd, nullptr, nullptr, nullptr);
-//RECT rc {};
-//GetClientRect(hWnd, &rc);
-//if (FAILED(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pfactory)) return -1;
-//CreateWindow(L"IMAGE", L"image1", WS_)
-//lButton = CreateWindow (L"BUTTON", L"Таймер", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 100, 100, 100, 100, hWnd, reinterpret_cast<HMENU>(1337), nullptr, nullptr);
-//MessageBox(hWnd, L"PRIVET", L"OK", MB_ICONERROR);
-//RECT rc{};
-//GetClientRect(hWnd, &rc);
-//SetWindowPos(lButton, nullptr, 0, 0, LOWORD(lParam), HIWORD(lParam), SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER);
-*/
+
 
 
