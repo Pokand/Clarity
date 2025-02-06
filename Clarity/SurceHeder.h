@@ -3,24 +3,12 @@
 #include "resource.h"
 #include <d2d1.h>
 #include <windowsx.h>
+#include <algorithm>
+#include <string>
+
 
 //ID2D1Factory* pfactory = nullptr;
 
-
-
-
-class MainPanel{
-	
-public:
-
-	MainPanel();
-	~MainPanel();
-
-	void SetingsPanel();
-	void MotivPanel();
-	void ReceiptPanel();
-	void SupportPanel();
-};
 
 
 class Graphics {
@@ -29,8 +17,9 @@ class Graphics {
 	ID2D1HwndRenderTarget* rendertarget;
 	ID2D1SolidColorBrush* brush;
 	ID2D1SolidColorBrush* brushButn;
-	bool OnPanel1;
+	
 public:
+	
 	Graphics();
 	~Graphics();
 
@@ -51,9 +40,24 @@ public:
 
 	void Taimer(float x, float y, float r, float g, float b);
 	
+	void MouseDown(int xPos, int yPos);
+
 };
 
 
+class MainPanel : Graphics{
+	
+public:
 
+	bool Panel1 = false;
+	bool SettingPanel1 = false;
+	bool MotivPanel1 = false;
+	bool ReceiptPanel1 = false;
+	bool SupportPanel1 = false;
+	void SetingsPanel();
+	void MotivPanel();
+	void ReceiptPanel();
+	void SupportPanel();
+};
 
 	

@@ -5,8 +5,14 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #include "SurceHeder.h"
 #include "resource.h"
 
+bool Panel1 = false;
+bool SettingPanel1 = false;
+bool MotivPanel1 = false;
+bool ReceiptPanel1 = false;
+bool SupportPanel1 = false;
 Graphics* graphics;
-bool Paint = false;
+MainPanel* panelwindow;
+
 int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) {
 	
 	MSG msg{};
@@ -39,10 +45,12 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 					
 					graphics->DrawPanel(10, 20, 50, 20, 0,0,0, 1);
 
-					if (Paint) {
+					if (Panel1) {
 						graphics->Panel(0.6f, 0.7f, 0.7f, 0.94f, 0.36f, 0.5f);
+
 					}
 
+					
 
 					graphics->EndDraw();
 				}
@@ -54,10 +62,10 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 					
 					int xPos = GET_X_LPARAM(lParam);
 					int yPos = GET_Y_LPARAM(lParam);
-
 					if (xPos >= 10 && xPos <= 50 && yPos >= 20 && yPos <= 40) {
-						Paint = true;
+						Panel1 = true;
 					}
+					
 				}
 				return 0;
 
@@ -70,6 +78,8 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 
 			return DefWindowProc(hWnd, uMsg, wParam, lParam);
 		};
+	
+
 
 	wc.lpszClassName = L"MyAPP";
 	wc.lpszMenuName = nullptr;
@@ -106,7 +116,30 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 	return static_cast<int>(msg.wParam);
 }
 
+/*std::pair<bool, HWND> AddWindow(const std::wstring&& winClass, const std::wstring&& title, HWND hParentwindow, const WNDPROC wndproc) {
+	UnregisterClass(winClass.c_str(), DrvGetModuleHandle(nullptr));
+	WNDCLASSEX wc(sizeof(WNDCLASSEX));
+	HWND hwnd;
+	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wc.hIcon = LoadIcon(nullptr, MAKEINTRESOURCE(IDI_ICON1));
+	wc.lpszClassName = winClass.c_str();
+	wc.lpfnWndProc = wndproc;
+	wc.style = CS_VREDRAW | CS_HREDRAW;
 
+	const auto create_window = [&hwnd, &winClass, &title, &hParentwindow]() -> std::pair<bool, HWND>
+		{
+			if (hwnd = CreateWindow(winClass.c_str(), title.c_str(), WS_OVERLAPPEDWINDOW, 100, 100, 300, 300, hParentwindow, nullptr, nullptr, nullptr); !hwnd) {
+				return { false,nullptr };
+			}
+
+			ShowWindow(hwnd, SW_SHOWDEFAULT);
+			return { true, hwnd };
+		};
+
+	if (!RegisterClassEx(&wc)) return create_window();
+
+	return create_window();
+}*/
 
 /*
 //HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pfactory);

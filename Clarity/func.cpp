@@ -1,12 +1,12 @@
 #include "SurceHeder.h"
 
 
+
 Graphics::Graphics() {
 	pfactory = NULL;
 	rendertarget = NULL;
 	brush = NULL;
 	brushButn = NULL;
-	OnPanel1 = false;
 	pRander = NULL;
 }
 Graphics::~Graphics() {
@@ -64,7 +64,6 @@ void Graphics::Panel(float r, float g, float b, float r1, float g1, float b1) {
 	rendertarget->DrawRectangle(D2D1::RectF(25.0f, 60.0f, 135.0f, 126.0f), brushButn, 1.0f);
 	rendertarget->FillRectangle(D2D1::RectF(25.0f, 60.0f, 135.0f, 126.0f), brushButn);
 
-
 	rendertarget->DrawRectangle(D2D1::RectF(25.0f, 136.0f, 135.0f, 202.0f), brushButn, 1.0f);
 	rendertarget->FillRectangle(D2D1::RectF(25.0f, 136.0f, 135.0f, 202.0f), brushButn);
 
@@ -90,3 +89,4 @@ void Graphics::Taimer(float x, float y, float r, float g, float b) {
 
 	
 }
+
