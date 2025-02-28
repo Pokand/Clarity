@@ -5,67 +5,63 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #include "SurceHeder.h"
 #include "resource.h"
 
-bool Panel1 = false;
+Panel* panel = new Panel;
+
+bool Panel1 = true;
 bool SettingPanel1 = false;
 bool MotivPanel1 = false;
 bool ReceiptPanel1 = false;
 bool SupportPanel1 = false;
-Graphics* graphics;
-MainPanel* panelwindow;
+
 
 int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) {
 	
 	MSG msg{};
-	static HWND hwnd{}, lButton{};
+	HWND hwnd{};
 	WNDCLASSEX wc{ sizeof(WNDCLASSEX) };
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hbrBackground = NULL;
 	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wc.hIcon = LoadIcon(hinstance, MAKEINTRESOURCE(IDI_ICON1));
-	
 	wc.hInstance = hinstance;
-	
+	static HICON icon = LoadIcon(hinstance, MAKEINTRESOURCE(IDI_ICON2));
 	wc.lpfnWndProc = [](HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)->LRESULT
 		{
 			
+			
 			switch (uMsg)
 			{
-	
-
-				case WM_PAINT:
+				case WM_CREATE:
 				{
-					graphics->BeginDraw();
+					panel->CreatePanel(hWnd);
+					panel->CreateMainPanel(hWnd);
 
-					
-
-					graphics->ClearScreen(0.4f, 0.6f, 1.0f);
-
-					graphics->Taimer(300, 100, 0.2f, 0.3f, 0.5f);
-					
-					graphics->DrawPanel(10, 20, 50, 20, 0,0,0, 1);
-
-					if (Panel1) {
-						graphics->Panel(0.6f, 0.7f, 0.7f, 0.94f, 0.36f, 0.5f);
-
-					}
-
-					
-
-					graphics->EndDraw();
+					SendMessage(panel->returnHWND(1), BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)icon); 
 				}
 				return 0;
 				
-
-				case WM_LBUTTONDOWN:
+				case WM_COMMAND:
 				{
-					
-					int xPos = GET_X_LPARAM(lParam);
-					int yPos = GET_Y_LPARAM(lParam);
-					if (xPos >= 10 && xPos <= 50 && yPos >= 20 && yPos <= 40) {
-						Panel1 = true;
+					switch (LOWORD(wParam))
+					{
+					case 1001:
+					{	
+	
 					}
+					return 0;
+					}
+				}
+				return 0;
+				case WM_PAINT:
+				{
+
+					PAINTSTRUCT ps;
+					HDC hd = BeginPaint(hWnd, &ps);
+					RECT rc{ 120,0,500,600 };
+					FillRect(hd, &rc, (HBRUSH)(1,1,1));
 					
+					EndPaint(hWnd, &ps);
 				}
 				return 0;
 
@@ -94,14 +90,8 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 
 	if (hwnd = CreateWindow(wc.lpszClassName, L"Clarity", WS_OVERLAPPEDWINDOW &~WS_THICKFRAME & ~WS_MAXIMIZEBOX & ~(WS_MAXIMIZEBOX | WS_MINIMIZEBOX), 0, 0, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, wc.hInstance, nullptr); hwnd == INVALID_HANDLE_VALUE)
 		return EXIT_FAILURE;
-	graphics = new Graphics();
-
-	if(!graphics->Init(hwnd))
-	{
-		delete graphics;
-		return -1;
-	}
 	
+
 
 	ShowWindow(hwnd, cmdShow);
 	UpdateWindow(hwnd);
@@ -112,7 +102,7 @@ int CALLBACK wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR pwstr, int cmdShow) 
 		DispatchMessage(&msg);
 	}
 
-	delete graphics;
+	
 	return static_cast<int>(msg.wParam);
 }
 

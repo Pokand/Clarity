@@ -39,7 +39,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MainIcon.ico">
+    <Image Include="res\MainIcon.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\PanelIcon.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
